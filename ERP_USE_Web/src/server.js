@@ -19,7 +19,7 @@ app.use('/api/produtos', require('./routes/produtos'));
 app.use('/api/vendas', require('./routes/vendas'));
 app.use('/api/clientes', require('./routes/clientes'));
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000; // Changed to 4000
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
