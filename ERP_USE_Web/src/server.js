@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path'); // Import path module
 require('dotenv').config();
 
 const app = express();
@@ -7,19 +8,21 @@ const app = express();
 // Middlewares
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, '/../views'))); // Serve static files
 
-// Rotas básicas
+// Serve the login page
 app.get('/', (req, res) => {
-  res.json({ message: 'ERP Use Sistemas - API' });
+  res.sendFile(path.join(__dirname, '/../views/login.html')); // Updated path
 });
 
-// Rotas dos módulos
+// Routes
+app.use('/api/login', require('./routes/login'));
 app.use('/api/usuarios', require('./routes/usuarios'));
 app.use('/api/produtos', require('./routes/produtos'));
 app.use('/api/vendas', require('./routes/vendas'));
 app.use('/api/clientes', require('./routes/clientes'));
 
-const PORT = process.env.PORT || 4000; // Changed to 4000
+const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
